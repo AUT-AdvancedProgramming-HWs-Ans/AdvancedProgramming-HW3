@@ -2,17 +2,18 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.1
- * @date 2022-03-29
- * 
+ * @version 1.0.2
+ * @date 2022-03-30
+ *
  * @copyright Copyright (c) 2022
- * 
+ *
  */
 
 #ifndef BST_H
 #define BST_H
 
 // Importing the libraries
+#include <compare>
 #include <functional>
 #include <iostream>
 
@@ -21,6 +22,16 @@ public:
     Node(int _value, Node* _left, Node* _right);
     Node() = default;
     Node(const Node& node);
+    
+    friend std::ostream& operator<<(std::ostream& stream, const Node& node);
+
+    std::partial_ordering operator<=>(const Node& node) const;
+    bool operator==(const Node& node) const;
+
+    std::partial_ordering operator<=>(int _value) const;
+    bool operator==(int _value) const;
+
+
 
     int value;
     Node* left;

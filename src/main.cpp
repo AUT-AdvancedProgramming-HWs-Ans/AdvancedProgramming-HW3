@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.1
- * @date 2022-03-29
+ * @version 1.0.2
+ * @date 2022-03-30
  * 
  * @copyright Copyright (c) 2022
  * 
