@@ -2,8 +2,8 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.2
- * @date 2022-03-30
+ * @version 1.0.3
+ * @date 2022-03-31
  *
  * @copyright Copyright (c) 2022
  *
@@ -65,7 +65,7 @@ std::partial_ordering Node::operator<=>(const Node& node) const
      * @return std::partial_ordering
      */
 
-     return value <=> node.value;
+    return value <=> node.value;
 }
 
 bool Node::operator==(const Node& node) const
@@ -104,4 +104,108 @@ bool Node::operator==(int _value) const
      */
 
     return value == _value;
+}
+
+Node*& BST::get_root()
+{
+    /**
+     * @brief Getter for root
+     *
+     * @return Node*&
+     */
+
+    return root;
+}
+
+void BST::bfs(std::function<void(Node*& node)> func) const
+{
+    /**
+     * @brief Breadth first search
+     *
+     * @param func Function to call on each node
+     */
+
+    std::queue<Node*> queue;
+    // queue for storing nodes to apply func on
+
+    queue.push(root);
+
+    while (!queue.empty()) {
+
+        Node* node { queue.front() };
+
+        // Popping the front element
+        queue.pop();
+
+        func(node);
+
+        // Adding child nodes to the queue
+
+        if (node->left != nullptr)
+            queue.push(node->left);
+
+        if (node->right != nullptr)
+            queue.push(node->right);
+    }
+}
+
+size_t BST::length() const
+{
+    /**
+     * @brief Get the length of the tree
+     *
+     * @return size_t
+     */
+
+    size_t length { 0 };
+
+    BST::bfs([&length](Node*& node) {
+        length++;
+    });
+
+    return length;
+}
+
+bool BST::add_node(int _value)
+{
+    /**
+     * @brief Add a node to the tree
+     *
+     * @param _value Value of the node
+     * @return true
+     * @return false
+     */
+
+    Node** node { &root };
+    // node: copy of refrence of root
+
+    while (true) {
+        if ((*node) == nullptr) {
+            // if node is nullptr, add the node
+            (*node) = new Node(_value, nullptr, nullptr);
+            return true;
+        }
+
+        if (_value < (*node)->value) {
+            // if value is less than the node, go left
+            if ((*node)->left == nullptr) {
+                (*node)->left = new Node(_value, nullptr, nullptr);
+                return true;
+            } else {
+                node = &((*node)->left);
+            }
+        } else if (_value > (*node)->value) {
+            // if value is greater than the node, go right
+            if ((*node)->right == nullptr) {
+                (*node)->right = new Node(_value, nullptr, nullptr);
+                return true;
+            } else {
+                node = &((*node)->right);
+            }
+        } else {
+            return false;
+        }
+    }
+
+    return false;
 }

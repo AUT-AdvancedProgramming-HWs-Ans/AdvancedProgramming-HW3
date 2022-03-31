@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.2
- * @date 2022-03-30
+ * @version 1.0.3
+ * @date 2022-03-31
  * 
  * @copyright Copyright (c) 2022
  * 
@@ -19,6 +19,10 @@ int main(int argc, char **argv)
     if (false) // make false to run unit-tests
     {
         // debug section
+
+        // BST bst1 {};
+
+        // BST bst2 {bst1};
 
     }
     else
