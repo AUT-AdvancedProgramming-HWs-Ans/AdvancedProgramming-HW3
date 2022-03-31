@@ -103,7 +103,7 @@ TEST(HW3Test, TEST8) {
     EXPECT_EQ(bst.get_root()->left->right->value, 15);
     EXPECT_EQ(bst.get_root()->right->right->value, 53);
 }
-/*
+
 TEST(HW3Test, TEST9) {
     BST bst{};
     bst.add_node(25);
@@ -134,18 +134,18 @@ TEST(HW3Test, TEST10) {
     EXPECT_EQ(bst.length(), 6);
 }
 
-TEST(HW3Test, TEST11) {
-    BST bst{};
-    bst.add_node(25);
-    bst.add_node(10);
-    bst.add_node(50);
-    bst.add_node(53);
-    bst.add_node(15);
-    bst.add_node(7);
+// TEST(HW3Test, TEST11) {
+//     BST bst{};
+//     bst.add_node(25);
+//     bst.add_node(10);
+//     bst.add_node(50);
+//     bst.add_node(53);
+//     bst.add_node(15);
+//     bst.add_node(7);
 
-    std::cout << "PRINT A BINARY SEARCH TREE" << std::endl;
-    std::cout << bst << std::endl;
-}
+//     std::cout << "PRINT A BINARY SEARCH TREE" << std::endl;
+//     std::cout << bst << std::endl;
+// }
 
 TEST(HW3Test, TEST12) {
     BST bst{};
@@ -208,7 +208,7 @@ TEST(HW3Test, TEST15) {
     EXPECT_EQ((*node)->left, nullptr);
     EXPECT_EQ((*node)->right, nullptr);
 }
-
+/*
 TEST(HW3Test, TEST16) {
     BST bst{};
     bst.add_node(25);
