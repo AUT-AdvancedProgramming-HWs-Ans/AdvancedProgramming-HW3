@@ -2,8 +2,8 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.4
- * @date 2022-03-31
+ * @version 1.0.5
+ * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
  *
@@ -314,4 +314,56 @@ Node** BST::find_successor(int _value) const
     }
 
     return nullptr;
+}
+
+bool BST::delete_node(int _value)
+{
+    /**
+     * @brief Delete a node from the tree
+     *
+     * @param _value Value of the node
+     * @return true Node deleted successfully
+     * @return false Node not deleted
+     */
+
+    Node** node { find_node(_value) };
+
+    if (node == nullptr)
+        return false;
+
+    if ((*node)->left == nullptr && (*node)->right == nullptr) {
+        // if the node has no children, delete it
+        delete (*node);
+        (*node) = nullptr;
+
+        return true;
+
+    } else if ((*node)->left == nullptr) {
+        // if the node has no left child, replace it with its right child
+        Node* rightChildOfnode { (*node)->right };
+        delete (*node);
+        (*node) = rightChildOfnode;
+
+        return true;
+
+    } else if ((*node)->right == nullptr) {
+        // if the node has no right child, replace it with its left child
+        Node* leftChildOfnode { (*node)->left };
+        delete (*node);
+        (*node) = leftChildOfnode;
+
+        return true;
+
+    } else {
+        // if the node has both children, replace it with its successor
+        Node** successor { find_successor(_value) };
+        (*node)->value = (*successor)->value;
+
+        delete (*successor);
+        (*successor) = nullptr;
+
+        return true;
+    }
+
+    return false;
 }
