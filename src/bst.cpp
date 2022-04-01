@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.8
+ * @version 1.0.9
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -480,6 +480,22 @@ BST::BST(BST&& bst)
     bst.root = nullptr;
 }
 
+BST::BST(std::initializer_list<int> list)
+{
+    /**
+     * @brief Initializer list constructor
+     *
+     * @param list Initializer list
+     */
+
+    std::cout << "BST initializer list constructor called" << std::endl;
+
+    root = nullptr;
+
+    for (auto& value : list)
+        add_node(value);
+}
+
 BST::~BST()
 {
     /**
@@ -543,11 +559,7 @@ BST& BST::operator=(const BST& bst)
     std::cout << "BST assignment operator called" << std::endl;
 
     if (this != &bst) {
-        std::vector<Node*> nodesToDelete;
-        bfs([&nodesToDelete](BST::Node*& node) { nodesToDelete.push_back(node); });
-
-        for (auto& node : nodesToDelete)
-            delete node;
+        BST::~BST();
 
         bst.bfs([this](BST::Node*& node) {
             add_node(node->value);
@@ -567,16 +579,13 @@ BST& BST::operator=(BST&& bst)
      */
 
     std::cout << "BST move assignment operator called" << std::endl;
-    if (this != &bst) {
-        std::vector<Node*> nodesToDelete;
-        bfs([&nodesToDelete](BST::Node*& node) { nodesToDelete.push_back(node); });
 
-        for (auto& node : nodesToDelete)
-            delete node;
+    if (this != &bst) {
+        BST::~BST();
 
         root = bst.root;
-
         bst.root = nullptr;
     }
+
     return *this;
 }

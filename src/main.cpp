@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.8
+ * @version 1.0.9
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
