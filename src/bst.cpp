@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.7
+ * @version 1.0.8
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -158,24 +158,25 @@ void BST::bfs(std::function<void(Node*& node)> func) const
     std::queue<Node*> queue;
     // queue for storing nodes to apply func on
 
-    queue.push(root);
+    if (root != nullptr) {
+        queue.push(root);
+        while (!queue.empty()) {
 
-    while (!queue.empty()) {
+            Node* node { queue.front() };
 
-        Node* node { queue.front() };
+            // Popping the front element
+            queue.pop();
 
-        // Popping the front element
-        queue.pop();
+            func(node);
 
-        func(node);
+            // Adding child nodes to the queue
 
-        // Adding child nodes to the queue
+            if (node->left != nullptr)
+                queue.push(node->left);
 
-        if (node->left != nullptr)
-            queue.push(node->left);
-
-        if (node->right != nullptr)
-            queue.push(node->right);
+            if (node->right != nullptr)
+                queue.push(node->right);
+        }
     }
 }
 
@@ -356,7 +357,7 @@ Node** BST::find_successor(int _value) const
     return nullptr;
 }
 
-bool BST::delete_node(int _value)
+bool BST::delete_node(int _value) const
 {
     /**
      * @brief Delete a node from the tree
@@ -410,13 +411,13 @@ bool BST::delete_node(int _value)
     return false;
 }
 
-std::ostream& operator<<(std::ostream& stream, const BST& _bst)
+std::ostream& operator<<(std::ostream& stream, const BST& bst)
 {
     /**
      * @brief Overload the << operator
      *
      * @param stream Output stream
-     * @param _bst BST object
+     * @param bst BST object
      * @return std::ostream&
      */
 
@@ -424,14 +425,14 @@ std::ostream& operator<<(std::ostream& stream, const BST& _bst)
 
     stream << std::string(80, '*') << std::endl;
 
-    _bst.bfs([&stream](Node*& node) {
+    bst.bfs([&stream](Node*& node) {
         stream << std::left << std::setw(17) << node
                << "=> value:" << std::left << std::setw(10) << node->value
                << "left:" << std::left << std::setw(16) << node->left
                << "right:" << std::left << std::setw(16) << node->right << std::endl;
     });
 
-    stream << "binary search tree size: " << _bst.length() << std::endl;
+    stream << "binary search tree size: " << bst.length() << std::endl;
     stream << std::string(80, '*') << std::endl;
 
     return stream;
@@ -448,33 +449,134 @@ BST::BST()
     root = nullptr;
 }
 
-BST::BST(const BST& _bst)
+BST::BST(const BST& bst)
 {
     /**
      * @brief Copy constructor
      *
-     * @param _bst BST object
+     * @param bst BST object
      */
 
     std::cout << "BST copy constructor called" << std::endl;
 
     root = nullptr;
 
-    _bst.bfs([this](Node*& node) {
+    bst.bfs([this](Node*& node) {
         add_node(node->value);
     });
 }
 
-BST::BST(BST&& _bst)
+BST::BST(BST&& bst)
 {
     /**
      * @brief Move constructor
      *
-     * @param _bst BST object
+     * @param bst BST object
      */
 
     std::cout << "BST move constructor called" << std::endl;
 
-    root = _bst.root;
-    _bst.root = nullptr;
+    root = bst.root;
+    bst.root = nullptr;
+}
+
+BST::~BST()
+{
+    /**
+     * @brief Destructor
+     */
+
+    std::cout << "BST destructor called" << std::endl;
+
+    std::vector<Node*> nodes;
+    bfs([&nodes](BST::Node*& node) { nodes.push_back(node); });
+
+    for (auto& node : nodes)
+        delete node;
+}
+
+const BST& BST::operator++() const
+{
+    /**
+     * @brief Overload the pre-increment operator
+     *
+     * @return const BST&
+     */
+
+    std::cout << "BST pre-increment operator called" << std::endl;
+
+    bfs([](Node*& node) {
+        node->value++;
+    });
+
+    return *this;
+}
+
+const BST BST::operator++(int) const
+{
+    /**
+     * @brief Overload the post-increment operator
+     *
+     * @return const BST
+     */
+
+    std::cout << "BST post-increment operator called" << std::endl;
+
+    BST bst { *this };
+
+    bfs([](Node*& node) {
+        node->value++;
+    });
+
+    return bst;
+}
+
+BST& BST::operator=(const BST& bst)
+{
+    /**
+     * @brief Overload the assignment operator
+     *
+     * @param bst BST object
+     * @return BST&
+     */
+
+    std::cout << "BST assignment operator called" << std::endl;
+
+    if (this != &bst) {
+        std::vector<Node*> nodesToDelete;
+        bfs([&nodesToDelete](BST::Node*& node) { nodesToDelete.push_back(node); });
+
+        for (auto& node : nodesToDelete)
+            delete node;
+
+        bst.bfs([this](BST::Node*& node) {
+            add_node(node->value);
+        });
+    }
+
+    return *this;
+}
+
+BST& BST::operator=(BST&& bst)
+{
+    /**
+     * @brief Overload the move assignment operator
+     *
+     * @param bst BST object
+     * @return BST&
+     */
+
+    std::cout << "BST move assignment operator called" << std::endl;
+    if (this != &bst) {
+        std::vector<Node*> nodesToDelete;
+        bfs([&nodesToDelete](BST::Node*& node) { nodesToDelete.push_back(node); });
+
+        for (auto& node : nodesToDelete)
+            delete node;
+
+        root = bst.root;
+
+        bst.root = nullptr;
+    }
+    return *this;
 }

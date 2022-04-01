@@ -2,7 +2,7 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.7
+ * @version 1.0.8
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -41,8 +41,10 @@ public:
 class BST : public Node {
 public:
     BST();
-    BST(const BST& _bst);
-    BST(BST&& _bst);
+    BST(const BST& bst);
+    BST(BST&& bst);
+
+    ~BST();
 
     Node*& get_root() const;
     void bfs(std::function<void(Node*& node)> func) const;
@@ -51,11 +53,15 @@ public:
     Node** find_node(int _value) const;
     Node** find_parrent(int _value) const;
     Node** find_successor(int _value) const;
-    bool delete_node(int _value);
+    bool delete_node(int _value) const;
 
-    friend std::ostream& operator<<(std::ostream& stream, const BST& _bst);
+    const BST& operator++() const;
+    const BST operator++(int) const;
 
-    // BST& operator=(const BST& bst) = default;
+    BST& operator=(const BST& bst);
+    BST& operator=(BST&& bst);
+
+    friend std::ostream& operator<<(std::ostream& stream, const BST& bst);
 
 private:
     Node* root;
