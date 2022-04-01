@@ -2,7 +2,7 @@
  * @file main.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.7
+ * @version 1.0.8
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -18,6 +18,53 @@ int main(int argc, char** argv)
 {
     if (false) // make false to run unit-tests
     {
+        ////////////////////////////////
+        // BST bst {};
+        // bst.add_node(-5);
+        // bst.add_node(-6);
+        // bst.add_node(10);
+        // bst.add_node(11);
+        // bst.add_node(-17);
+
+        // std::cout << bst << std::endl;
+        // bst = std::move(bst);
+        // std::cout << bst << std::endl;
+
+        // BST bst {};
+        // bst.add_node(5);
+        // bst.add_node(10);
+        // bst.add_node(50);
+
+        // std::cout << bst << std::endl;
+
+        // int test_value { bst.get_root()->right->value };
+        // BST::Node* adddress_of_root { *bst.find_node(5) };
+
+        // BST move { std::move(bst) };
+        // std::cout << bst << std::endl;
+        // std::cout << move << std::endl;
+
+        // BST::Node node{};
+        // std::cout<<node.value<<std::endl;
+
+        // Initializing the testing framework
+        // BST bst {};
+        // bst.add_node(5);
+
+        // bst.add_node(3);
+
+        // bst.find_node(5);
+        // std::cout << bst << std::endl;
+        // // BST bst1 {};
+        // // bst1.add_node(*(bst.find_node(5)));
+
+        // bst.find_node(5);
+        // std::cout << bst << std::endl;
+
+        // bst.delete_node(5);
+
+        // std::cout << bst << std::endl;
+
         // int** a{};
 
         // a= nullptr;
