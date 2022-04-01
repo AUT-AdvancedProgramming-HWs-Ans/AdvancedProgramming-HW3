@@ -2,7 +2,7 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.5
+ * @version 1.0.6
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -15,6 +15,7 @@
 // Importing the libraries
 #include <compare>
 #include <functional>
+#include <iomanip>
 #include <iostream>
 #include <queue>
 
@@ -47,6 +48,8 @@ public:
     Node** find_parrent(int _value) const;
     Node** find_successor(int _value) const;
     bool delete_node(int _value);
+
+    friend std::ostream& operator<<(std::ostream& stream, const BST& bst);
 
     // BST& operator=(const BST& bst) = default;
 

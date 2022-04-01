@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.5
+ * @version 1.0.6
  * @date 2022-04-01
  *
  * @copyright Copyright (c) 2022
@@ -24,6 +24,8 @@ Node::Node(int _value, Node* _left, Node* _right)
      * @param _left Left child of the node
      * @param _right Right child of the node
      */
+
+    std::cout << "Node constructor called" << std::endl;
 }
 
 Node::Node(const Node& node)
@@ -36,6 +38,8 @@ Node::Node(const Node& node)
      *
      * @param node Node to copy
      */
+
+    std::cout << "Node copy constructor called" << std::endl;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Node& node)
@@ -48,6 +52,8 @@ std::ostream& operator<<(std::ostream& stream, const Node& node)
      * @return std::ostream&
      */
 
+    std::cout<<"Node operator << called"<<std::endl;
+
     stream << "adress of node: " << &node << std::endl;
     stream << "value of node: " << node.value << std::endl;
     stream << "adress of left child: " << node.left << std::endl;
@@ -59,11 +65,13 @@ std::ostream& operator<<(std::ostream& stream, const Node& node)
 std::partial_ordering Node::operator<=>(const Node& node) const
 {
     /**
-     * @brief Overloaded operator <=> for Node
+     * @brief Overloaded operator <=> with Node
      *
      * @param node Node to compare
      * @return std::partial_ordering
      */
+
+    std::cout<<"Node operator <=> with Node called"<<std::endl;
 
     return value <=> node.value;
 }
@@ -78,6 +86,8 @@ bool Node::operator==(const Node& node) const
      * @return false if not equal
      */
 
+    std::cout<<"Node operator == with Node called"<<std::endl;
+
     return value == node.value;
 }
 
@@ -89,6 +99,8 @@ std::partial_ordering Node::operator<=>(int _value) const
      * @param _value Value to compare
      * @return std::partial_ordering
      */
+
+    std::cout<<"Node operator <=> with int called"<<std::endl;
 
     return value <=> _value;
 }
@@ -103,6 +115,8 @@ bool Node::operator==(int _value) const
      * @return false if not equal
      */
 
+    std::cout<<"Node operator == with int called"<<std::endl;
+
     return value == _value;
 }
 
@@ -114,6 +128,8 @@ Node*& BST::get_root() const
      * @return Node*&
      */
 
+    std::cout<<"BST get_root called"<<std::endl;
+
     return const_cast<Node*&>(root);
 }
 
@@ -124,6 +140,8 @@ void BST::bfs(std::function<void(Node*& node)> func) const
      *
      * @param func Function to call on each node
      */
+
+    std::cout<<"BST bfs called"<<std::endl;
 
     std::queue<Node*> queue;
     // queue for storing nodes to apply func on
@@ -157,6 +175,8 @@ size_t BST::length() const
      * @return size_t
      */
 
+    std::cout<<"BST length called"<<std::endl;
+
     size_t length { 0 };
 
     BST::bfs([&length](Node*& node) {
@@ -175,6 +195,8 @@ bool BST::add_node(int _value)
      * @return true Node added successfully
      * @return false Node not added
      */
+
+    std::cout<<"BST add_node called"<<std::endl;
 
     Node** node { &root };
     // node: copy of refrence of root
@@ -224,6 +246,8 @@ Node** BST::find_node(int _value) const
      * @return Node** Pointer to the node if found else nullptr
      */
 
+    std::cout<<"BST find_node called"<<std::endl;
+
     Node** node { const_cast<Node**>(&root) };
     // node: copy of refrence of root
 
@@ -257,6 +281,8 @@ Node** BST::find_parrent(int _value) const
      * @param _value Value of the node
      * @return Node** or nullptr
      */
+
+    std::cout<<"BST find_parrent called"<<std::endl;
 
     Node** node { const_cast<Node**>(&root) };
     Node** parrent { nullptr };
@@ -295,6 +321,8 @@ Node** BST::find_successor(int _value) const
      * @return Node** or nullptr
      */
 
+    std::cout<<"BST find_successor called"<<std::endl;
+
     Node** node { find_node(_value) };
 
     if (node == nullptr)
@@ -325,6 +353,8 @@ bool BST::delete_node(int _value)
      * @return true Node deleted successfully
      * @return false Node not deleted
      */
+
+    std::cout<<"BST delete_node called"<<std::endl;
 
     Node** node { find_node(_value) };
 
@@ -366,4 +396,31 @@ bool BST::delete_node(int _value)
     }
 
     return false;
+}
+
+std::ostream& operator<<(std::ostream& stream, const BST& _bst)
+{
+    /**
+     * @brief Overload the << operator
+     *
+     * @param stream Output stream
+     * @param _bst BST object
+     * @return std::ostream&
+     */
+
+    std::cout<<"BST << operator called"<<std::endl;
+
+    stream << std::string(80, '*') << std::endl;
+
+    _bst.bfs([&stream](Node*& node) {
+        stream << std::left << std::setw(17) << node
+               << "=> value:" << std::left << std::setw(10) << node->value
+               << "left:" << std::left << std::setw(16) << node->left
+               << "right:" << std::left << std::setw(16) << node->right << std::endl;
+    });
+
+    stream << "binary search tree size: " << _bst.length() << std::endl;
+    stream << std::string(80, '*') << std::endl;
+
+    return stream;
 }
