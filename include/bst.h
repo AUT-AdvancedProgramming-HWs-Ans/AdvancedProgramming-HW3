@@ -2,7 +2,7 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.0
+ * @version 1.1.1
  * @date 2022-04-02
  *
  * @copyright Copyright (c) 2022
@@ -19,27 +19,27 @@
 #include <iostream>
 #include <queue>
 
-class Node {
+class BST {
 public:
-    Node();
-    Node(int _value, Node* _left, Node* _right);
-    Node(const Node& node);
+    class Node {
+    public:
+        Node();
+        Node(int _value, Node* _left, Node* _right);
+        Node(const Node& node);
 
-    friend std::ostream& operator<<(std::ostream& stream, const Node& node);
+        friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 
-    std::partial_ordering operator<=>(const Node& node) const;
-    bool operator==(const Node& node) const;
+        std::partial_ordering operator<=>(const Node& node) const;
+        bool operator==(const Node& node) const;
 
-    std::partial_ordering operator<=>(int _value) const;
-    bool operator==(int _value) const;
+        std::partial_ordering operator<=>(int _value) const;
+        bool operator==(int _value) const;
 
-    int value;
-    Node* left;
-    Node* right;
-};
+        int value;
+        Node* left;
+        Node* right;
+    };
 
-class BST : public Node {
-public:
     BST();
     BST(const BST& bst);
     BST(BST&& bst);

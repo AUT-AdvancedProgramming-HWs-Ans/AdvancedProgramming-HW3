@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.0
+ * @version 1.1.1
  * @date 2022-04-02
  *
  * @copyright Copyright (c) 2022
@@ -12,7 +12,7 @@
 // Adding header files
 #include "bst.h"
 
-Node::Node()
+BST::Node::Node()
     : value(0)
     , left(nullptr)
     , right(nullptr)
@@ -24,7 +24,7 @@ Node::Node()
     std::cout << "Node default constructor called" << std::endl;
 }
 
-Node::Node(int _value, Node* _left, Node* _right)
+BST::Node::Node(int _value, Node* _left, Node* _right)
     : value(_value)
     , left(_left)
     , right(_right)
@@ -40,7 +40,7 @@ Node::Node(int _value, Node* _left, Node* _right)
     std::cout << "Node constructor called" << std::endl;
 }
 
-Node::Node(const Node& node)
+BST::Node::Node(const Node& node)
     : value(node.value)
     , left(node.left)
     , right(node.right)
@@ -54,7 +54,7 @@ Node::Node(const Node& node)
     std::cout << "Node copy constructor called" << std::endl;
 }
 
-std::ostream& operator<<(std::ostream& stream, const Node& node)
+std::ostream& operator<<(std::ostream& stream, const BST::Node& node)
 {
     /**
      * @brief Overloaded << operator
@@ -74,7 +74,7 @@ std::ostream& operator<<(std::ostream& stream, const Node& node)
     return stream;
 }
 
-std::partial_ordering Node::operator<=>(const Node& node) const
+std::partial_ordering BST::Node::operator<=>(const Node& node) const
 {
     /**
      * @brief Overloaded operator <=> with Node
@@ -88,7 +88,7 @@ std::partial_ordering Node::operator<=>(const Node& node) const
     return value <=> node.value;
 }
 
-bool Node::operator==(const Node& node) const
+bool BST::Node::operator==(const Node& node) const
 {
     /**
      * @brief Overloaded operator == with Node
@@ -103,7 +103,7 @@ bool Node::operator==(const Node& node) const
     return value == node.value;
 }
 
-std::partial_ordering Node::operator<=>(int _value) const
+std::partial_ordering BST::Node::operator<=>(int _value) const
 {
     /**
      * @brief Overloaded operator <=> with int
@@ -117,7 +117,7 @@ std::partial_ordering Node::operator<=>(int _value) const
     return value <=> _value;
 }
 
-bool Node::operator==(int _value) const
+bool BST::Node::operator==(int _value) const
 {
     /**
      * @brief Overloaded operator == with int
@@ -132,7 +132,7 @@ bool Node::operator==(int _value) const
     return value == _value;
 }
 
-Node*& BST::get_root() const
+BST::Node*& BST::get_root() const
 {
     /**
      * @brief Getter for root
@@ -250,7 +250,7 @@ bool BST::add_node(int _value)
 
     return false;
 }
-Node** BST::find_node(int _value) const
+BST::Node** BST::find_node(int _value) const
 {
     /**
      * @brief Find a node in the tree
@@ -286,7 +286,7 @@ Node** BST::find_node(int _value) const
     return nullptr;
 }
 
-Node** BST::find_parrent(int _value) const
+BST::Node** BST::find_parrent(int _value) const
 {
     /**
      * @brief Find the parrent of a node
@@ -325,7 +325,7 @@ Node** BST::find_parrent(int _value) const
     return nullptr;
 }
 
-Node** BST::find_successor(int _value) const
+BST::Node** BST::find_successor(int _value) const
 {
     /**
      * @brief Find the successor of a node
@@ -438,7 +438,7 @@ std::ostream& operator<<(std::ostream& stream, const BST& bst)
 
     stream << std::string(80, '*') << std::endl;
 
-    bst.bfs([&stream](Node*& node) {
+    bst.bfs([&stream](BST::Node*& node) {
         stream << std::left << std::setw(17) << node
                << "=> value:" << std::left << std::setw(10) << node->value
                << "left:" << std::left << std::setw(16) << node->left
