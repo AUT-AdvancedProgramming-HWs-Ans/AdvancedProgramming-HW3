@@ -2,8 +2,8 @@
  * @file main.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.9
- * @date 2022-04-01
+ * @version 1.1.0
+ * @date 2022-04-02
  *
  * @copyright Copyright (c) 2022
  *
@@ -18,6 +18,17 @@ int main(int argc, char** argv)
 {
     if (false) // make false to run unit-tests
     {
+        // Initializing the testing framework
+
+        /////////////////////////////////
+        // BST bst { 20, 10, 25, 5, 15, 4, 6, 13, 11,14,12 };
+
+        // std::cout << "BST: " << bst << std::endl;
+
+        // bst.delete_node(20);
+
+        // std::cout << "BST: " << bst << std::endl;
+
         ////////////////////////////////
         // BST bst {};
         // bst.add_node(-5);
@@ -47,7 +58,6 @@ int main(int argc, char** argv)
         // BST::Node node{};
         // std::cout<<node.value<<std::endl;
 
-        // Initializing the testing framework
         // BST bst {};
         // bst.add_node(5);
 

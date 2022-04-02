@@ -2,8 +2,8 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.0.9
- * @date 2022-04-01
+ * @version 1.1.0
+ * @date 2022-04-02
  *
  * @copyright Copyright (c) 2022
  *
@@ -383,29 +383,42 @@ bool BST::delete_node(int _value) const
 
     } else if ((*node)->left == nullptr) {
         // if the node has no left child, replace it with its right child
-        Node* rightChildOfnode { (*node)->right };
+        Node* rightChildOfNode { (*node)->right };
         delete (*node);
-        (*node) = rightChildOfnode;
+        (*node) = rightChildOfNode;
 
         return true;
 
     } else if ((*node)->right == nullptr) {
         // if the node has no right child, replace it with its left child
-        Node* leftChildOfnode { (*node)->left };
+        Node* leftChildOfNode { (*node)->left };
         delete (*node);
-        (*node) = leftChildOfnode;
+        (*node) = leftChildOfNode;
 
         return true;
 
     } else {
         // if the node has both children, replace it with its successor
         Node** successor { find_successor(_value) };
-        (*node)->value = (*successor)->value;
 
-        delete (*successor);
-        (*successor) = nullptr;
+        if ((*successor)->left == nullptr) {
+            // if the successor has no left child, replace the value of node with the value of successor
+            (*node)->value = (*successor)->value;
+            delete (*successor);
+            (*successor) = nullptr;
 
-        return true;
+            return true;
+
+        } else {
+            // if the successor has a left child, replace value of node with the value of successor
+            // then replace the successor with the left child of the successor
+            Node* leftChildOfSuccessor { (*successor)->left };
+            (*node)->value = (*successor)->value;
+            delete (*successor);
+            (*successor) = leftChildOfSuccessor;
+
+            return true;
+        }
     }
 
     return false;
