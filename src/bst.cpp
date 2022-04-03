@@ -2,8 +2,8 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.1
- * @date 2022-04-02
+ * @version 1.1.2
+ * @date 2022-04-04
  *
  * @copyright Copyright (c) 2022
  *
@@ -11,6 +11,21 @@
 
 // Adding header files
 #include "bst.h"
+
+// Debug section
+
+// #define DEBUG
+
+#ifdef DEBUG
+#define DEBUG_MSG(str)                 \
+    do {                               \
+        std::cout << str << std::endl; \
+    } while (false)
+#else
+#define DEBUG_MSG(str) \
+    do {               \
+    } while (false)
+#endif
 
 BST::Node::Node()
     : value(0)
@@ -21,7 +36,7 @@ BST::Node::Node()
      * @brief Default constructor
      */
 
-    std::cout << "Node default constructor called" << std::endl;
+    DEBUG_MSG("Node default constructor called");
 }
 
 BST::Node::Node(int _value, Node* _left, Node* _right)
@@ -37,7 +52,7 @@ BST::Node::Node(int _value, Node* _left, Node* _right)
      * @param _right Right child of the node
      */
 
-    std::cout << "Node constructor called" << std::endl;
+    DEBUG_MSG("Node constructor called");
 }
 
 BST::Node::Node(const Node& node)
@@ -51,7 +66,7 @@ BST::Node::Node(const Node& node)
      * @param node Node to copy
      */
 
-    std::cout << "Node copy constructor called" << std::endl;
+    DEBUG_MSG("Node copy constructor called");
 }
 
 std::ostream& operator<<(std::ostream& stream, const BST::Node& node)
@@ -64,7 +79,7 @@ std::ostream& operator<<(std::ostream& stream, const BST::Node& node)
      * @return std::ostream&
      */
 
-    std::cout << "Node operator << called" << std::endl;
+    DEBUG_MSG("Node operator << called");
 
     stream << "adress of node: " << &node << std::endl;
     stream << "value of node: " << node.value << std::endl;
@@ -83,7 +98,7 @@ std::partial_ordering BST::Node::operator<=>(const Node& node) const
      * @return std::partial_ordering
      */
 
-    std::cout << "Node operator <=> with Node called" << std::endl;
+    DEBUG_MSG("Node operator <=> with Node called");
 
     return value <=> node.value;
 }
@@ -98,7 +113,7 @@ bool BST::Node::operator==(const Node& node) const
      * @return false if not equal
      */
 
-    std::cout << "Node operator == with Node called" << std::endl;
+    DEBUG_MSG("Node operator == with Node called");
 
     return value == node.value;
 }
@@ -112,7 +127,7 @@ std::partial_ordering BST::Node::operator<=>(int _value) const
      * @return std::partial_ordering
      */
 
-    std::cout << "Node operator <=> with int called" << std::endl;
+    DEBUG_MSG("Node operator <=> with int called");
 
     return value <=> _value;
 }
@@ -127,7 +142,7 @@ bool BST::Node::operator==(int _value) const
      * @return false if not equal
      */
 
-    std::cout << "Node operator == with int called" << std::endl;
+    DEBUG_MSG("Node operator == with int called");
 
     return value == _value;
 }
@@ -140,7 +155,7 @@ BST::Node*& BST::get_root() const
      * @return Node*&
      */
 
-    std::cout << "BST get_root called" << std::endl;
+    DEBUG_MSG("BST get_root called");
 
     return const_cast<Node*&>(root);
 }
@@ -153,7 +168,7 @@ void BST::bfs(std::function<void(Node*& node)> func) const
      * @param func Function to call on each node
      */
 
-    std::cout << "BST bfs called" << std::endl;
+    DEBUG_MSG("BST bfs called");
 
     std::queue<Node*> queue;
     // queue for storing nodes to apply func on
@@ -188,7 +203,7 @@ size_t BST::length() const
      * @return size_t
      */
 
-    std::cout << "BST length called" << std::endl;
+    DEBUG_MSG("BST length called");
 
     size_t length { 0 };
 
@@ -209,7 +224,7 @@ bool BST::add_node(int _value)
      * @return false Node not added
      */
 
-    std::cout << "BST add_node called" << std::endl;
+    DEBUG_MSG("BST add_node called");
 
     Node** node { &root };
     // node: copy of refrence of root
@@ -259,7 +274,7 @@ BST::Node** BST::find_node(int _value) const
      * @return Node** Pointer to the node if found else nullptr
      */
 
-    std::cout << "BST find_node called" << std::endl;
+    DEBUG_MSG("BST find_node called");
 
     Node** node { const_cast<Node**>(&root) };
     // node: copy of refrence of root
@@ -295,7 +310,7 @@ BST::Node** BST::find_parrent(int _value) const
      * @return Node** or nullptr
      */
 
-    std::cout << "BST find_parrent called" << std::endl;
+    DEBUG_MSG("BST find_parrent called");
 
     Node** node { const_cast<Node**>(&root) };
     Node** parrent { nullptr };
@@ -334,7 +349,7 @@ BST::Node** BST::find_successor(int _value) const
      * @return Node** or nullptr
      */
 
-    std::cout << "BST find_successor called" << std::endl;
+    DEBUG_MSG("BST find_successor called");
 
     Node** node { find_node(_value) };
 
@@ -367,7 +382,7 @@ bool BST::delete_node(int _value) const
      * @return false Node not deleted
      */
 
-    std::cout << "BST delete_node called" << std::endl;
+    DEBUG_MSG("BST delete_node called");
 
     Node** node { find_node(_value) };
 
@@ -434,7 +449,7 @@ std::ostream& operator<<(std::ostream& stream, const BST& bst)
      * @return std::ostream&
      */
 
-    std::cout << "BST << operator called" << std::endl;
+    DEBUG_MSG("BST << operator called");
 
     stream << std::string(80, '*') << std::endl;
 
@@ -457,7 +472,7 @@ BST::BST()
      * @brief Default constructor
      */
 
-    std::cout << "BST default constructor called" << std::endl;
+    DEBUG_MSG("BST default constructor called");
 
     root = nullptr;
 }
@@ -470,7 +485,7 @@ BST::BST(const BST& bst)
      * @param bst BST object
      */
 
-    std::cout << "BST copy constructor called" << std::endl;
+    DEBUG_MSG("BST copy constructor called");
 
     root = nullptr;
 
@@ -487,7 +502,7 @@ BST::BST(BST&& bst)
      * @param bst BST object
      */
 
-    std::cout << "BST move constructor called" << std::endl;
+    DEBUG_MSG("BST move constructor called");
 
     root = bst.root;
     bst.root = nullptr;
@@ -501,7 +516,7 @@ BST::BST(std::initializer_list<int> list)
      * @param list Initializer list
      */
 
-    std::cout << "BST initializer list constructor called" << std::endl;
+    DEBUG_MSG("BST initializer list constructor called");
 
     root = nullptr;
 
@@ -515,7 +530,7 @@ BST::~BST()
      * @brief Destructor
      */
 
-    std::cout << "BST destructor called" << std::endl;
+    DEBUG_MSG("BST destructor called");
 
     std::vector<Node*> nodes;
     bfs([&nodes](BST::Node*& node) { nodes.push_back(node); });
@@ -532,7 +547,7 @@ const BST& BST::operator++() const
      * @return const BST&
      */
 
-    std::cout << "BST pre-increment operator called" << std::endl;
+    DEBUG_MSG("BST pre-increment operator called");
 
     bfs([](Node*& node) {
         node->value++;
@@ -549,7 +564,7 @@ const BST BST::operator++(int) const
      * @return const BST
      */
 
-    std::cout << "BST post-increment operator called" << std::endl;
+    DEBUG_MSG("BST post-increment operator called");
 
     BST bst { *this };
 
@@ -569,7 +584,7 @@ BST& BST::operator=(const BST& bst)
      * @return BST&
      */
 
-    std::cout << "BST assignment operator called" << std::endl;
+    DEBUG_MSG("BST assignment operator called");
 
     if (this != &bst) {
         BST::~BST();
@@ -591,7 +606,7 @@ BST& BST::operator=(BST&& bst)
      * @return BST&
      */
 
-    std::cout << "BST move assignment operator called" << std::endl;
+    DEBUG_MSG("BST move assignment operator called");
 
     if (this != &bst) {
         BST::~BST();

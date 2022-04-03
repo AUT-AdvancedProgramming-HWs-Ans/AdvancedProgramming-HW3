@@ -2,8 +2,8 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.1
- * @date 2022-04-02
+ * @version 1.1.2
+ * @date 2022-04-04
  *
  * @copyright Copyright (c) 2022
  *
