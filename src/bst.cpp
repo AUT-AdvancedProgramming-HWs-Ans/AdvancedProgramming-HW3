@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.2
+ * @version 1.1.3
  * @date 2022-04-04
  *
  * @copyright Copyright (c) 2022
@@ -508,7 +508,7 @@ BST::BST(BST&& bst)
     bst.root = nullptr;
 }
 
-BST::BST(std::initializer_list<int> list)
+BST::BST(std::initializer_list<int> listOfNodeValues)
 {
     /**
      * @brief Initializer list constructor
@@ -520,8 +520,8 @@ BST::BST(std::initializer_list<int> list)
 
     root = nullptr;
 
-    for (auto& value : list)
-        add_node(value);
+    for (auto& nodeValueItr : listOfNodeValues)
+        add_node(nodeValueItr);
 }
 
 BST::~BST()
@@ -568,9 +568,7 @@ const BST BST::operator++(int) const
 
     BST bst { *this };
 
-    bfs([](Node*& node) {
-        node->value++;
-    });
+    ++(*this);
 
     return bst;
 }

@@ -2,7 +2,7 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.2
+ * @version 1.1.3
  * @date 2022-04-04
  *
  * @copyright Copyright (c) 2022
@@ -15,6 +15,7 @@
 // Importing the libraries
 #include <compare>
 #include <functional>
+#include <initializer_list>
 #include <iomanip>
 #include <iostream>
 #include <queue>
