@@ -2,7 +2,7 @@
  * @file bst.cpp
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.3
+ * @version 1.1.4
  * @date 2022-04-04
  *
  * @copyright Copyright (c) 2022
@@ -467,14 +467,13 @@ std::ostream& operator<<(std::ostream& stream, const BST& bst)
 }
 
 BST::BST()
+    : root { nullptr }
 {
     /**
      * @brief Default constructor
      */
 
     DEBUG_MSG("BST default constructor called");
-
-    root = nullptr;
 }
 
 BST::BST(const BST& bst)
