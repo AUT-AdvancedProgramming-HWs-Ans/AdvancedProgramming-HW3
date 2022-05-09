@@ -2,8 +2,8 @@
  * @file bst.h
  * @author Erfan Rasti (erfanrasty@gmail.com)
  * @brief
- * @version 1.1.4
- * @date 2022-04-04
+ * @version 1.1.5
+ * @date 2022-05-09
  *
  * @copyright Copyright (c) 2022
  *
@@ -27,8 +27,6 @@ public:
         Node();
         Node(int _value, Node* _left, Node* _right);
         Node(const Node& node);
-
-        friend std::ostream& operator<<(std::ostream& stream, const Node& node);
 
         std::partial_ordering operator<=>(const Node& node) const;
         bool operator==(const Node& node) const;
@@ -63,10 +61,11 @@ public:
     BST& operator=(const BST& bst);
     BST& operator=(BST&& bst);
 
-    friend std::ostream& operator<<(std::ostream& stream, const BST& bst);
-
 private:
     Node* root;
 };
+
+std::ostream& operator<<(std::ostream& stream, const BST& bst);
+std::ostream& operator<<(std::ostream& stream, const BST::Node& node);
 
 #endif // BST_H
